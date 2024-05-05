@@ -16,6 +16,7 @@ if (!cart) {
   deliveryOptionId: '2'
 }];
 }
+
 }
 
 
@@ -46,7 +47,7 @@ export function addToCart(productId) {
     saveToStorage();
   }
 
-function saveToStorage() {
+export function saveToStorage() {
     localStorage.setItem('cart', JSON.stringify(cart));
   }
 
@@ -102,4 +103,11 @@ export function loadCart(fun) {
   xhr.open('GET', 'http://supersimplebackend.dev/cart');
   xhr.send();
 
+}
+
+export async function loadCartFetch() {
+  const response = await fetch('http://supersimplebackend.dev/cart');
+  const text = await response.text();
+  console.log(text);
+  return text;
 }
