@@ -6,11 +6,8 @@ import { loadCart,loadCartFetch, cart } from "../data/cart.js";
 //import '../data/cart-class.js';
 //import "../../data/car.js";
 
-if (cart) {
   loadPage();
-} else {
-  renderPaymentSummary();
-}
+
 
 async function loadPage() {
   try {

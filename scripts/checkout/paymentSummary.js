@@ -8,7 +8,9 @@ export function renderPaymentSummary () {
   let productPriceCents = 0;
   let shippingPriceCents = 0;
   
-  cart.forEach((cartItem) => {
+  if (cart) {
+
+    cart.forEach((cartItem) => {
     const product = getProduct(cartItem.productId);
     productPriceCents += product.priceCents * cartItem.quantity;
 
@@ -17,6 +19,8 @@ export function renderPaymentSummary () {
     shippingPriceCents += deliveryOption.priceCents;
 
   });
+  }
+  
 
   const totalBeforeTaxCents = productPriceCents + shippingPriceCents;
   const taxCents = totalBeforeTaxCents * 0.1;
@@ -29,7 +33,7 @@ export function renderPaymentSummary () {
     </div>
 
     <div class="payment-summary-row">
-      <div>Items (${calculateCartQuantity()}):</div>
+      <div>Items (${(cart) ? calculateCartQuantity() : 0}):</div>
       <div class="payment-summary-money">
         $${formatCurrency(productPriceCents)}
       </div>
@@ -90,7 +94,7 @@ export function renderPaymentSummary () {
       console.log('Unexpected error. Try again later.')
     }
     
-    //localStorage.removeItem('cart');
+    localStorage.removeItem('cart');
 
     window.location.href = 'orders.html';
   });

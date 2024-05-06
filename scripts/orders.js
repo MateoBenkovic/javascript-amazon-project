@@ -82,11 +82,14 @@ function renderOrders() {
       const { productId } = button.dataset;
       let matchingItem;
 
-      cart.forEach((cartItem) => {
+      if (cart) {
+        cart.forEach((cartItem) => {
         if (productId === cartItem.productId) {
           matchingItem = cartItem;
         }
       });
+      }
+      
   
       if (matchingItem) {
         matchingItem.quantity += 1;
@@ -99,7 +102,7 @@ function renderOrders() {
       }
   
       saveToStorage();
-
+      renderOrdersHeader();
     });
 });
 

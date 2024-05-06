@@ -11,6 +11,9 @@ export function renderOrderSummary() {
 
   let cartSummaryHTML = '';
 
+  if (calculateCartQuantity() === 0) {
+    document.querySelector('.js-order-summary').innerHTML = `Your cart is empty.`;
+  } else {
   cart.forEach((cartItem) => {
     const productId = cartItem.productId;
 
@@ -214,7 +217,10 @@ export function renderOrderSummary() {
       renderPaymentSummary();
     });
   });
+} 
 }
+
+
 
 
 
