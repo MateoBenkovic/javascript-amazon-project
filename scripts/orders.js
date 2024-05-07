@@ -60,11 +60,9 @@ function renderOrders() {
       </div>
 
       <div class="product-actions">
-        <a href="tracking.html">
-          <button class="track-package-button button-secondary">
+          <button class="track-package-button button-secondary js-track-package-button" data-product-id="${item.productId}" data-order-id="${order.id}">
             Track package
           </button>
-        </a>
       </div>
     
     `;
@@ -104,6 +102,14 @@ function renderOrders() {
       saveToStorage();
       renderOrdersHeader();
     });
+});
+
+document.querySelectorAll('.js-track-package-button').forEach((button) => {
+  button.addEventListener('click', () => {
+    const productId = button.getAttribute('data-product-id');
+    const orderId = button.getAttribute('data-order-id');
+    window.location.href = `tracking.html?productId=${productId}&orderId=${orderId}`;
+  });
 });
 
 }

@@ -6,13 +6,22 @@ import { renderPaymentSummary } from './paymentSummary.js';
 import { renderCheckoutHeader } from './checkoutHeader.js';
 import { calculateDeliveryDate } from '../../data/deliveryOptions.js';
 
+
+
 export function renderOrderSummary() {
   renderCheckoutHeader();
 
   let cartSummaryHTML = '';
 
   if (calculateCartQuantity() === 0) {
-    document.querySelector('.js-order-summary').innerHTML = `Your cart is empty.`;
+    document.querySelector('.js-order-summary').innerHTML = `Your cart is empty.<br> 
+    <button class="view-products-button js-view-products-button">
+    View products
+    </button>`;
+    document.querySelector('.js-view-products-button').addEventListener('click', () => {
+      window.location.href = 'amazon.html';
+    });
+    
   } else {
   cart.forEach((cartItem) => {
     const productId = cartItem.productId;
@@ -118,22 +127,12 @@ export function renderOrderSummary() {
       const productId = link.dataset.productId;
       removeFromCart(productId);
 
-      /*
-      const container = document.querySelector(`.js-cart-item-container-${productId}`);
-      container.remove();
-      document.querySelector('.js-checkout-header-cart-quantity').innerHTML = `${calculateCartQuantity()} items`;
-      */
-
       renderPaymentSummary();
       renderOrderSummary();
       renderCheckoutHeader();
       
     });
   });
-
-  /*
-  document.querySelector('.js-checkout-header-cart-quantity').innerHTML = `${calculateCartQuantity()} items`;
-  */
 
   document.querySelectorAll('.js-update-quantity-link').forEach((link) => {
     link.addEventListener('click', () => {
@@ -167,10 +166,6 @@ export function renderOrderSummary() {
 
         document.querySelector(`.js-quantity-${productId}`).innerHTML = newQuantity;
 
-        /*
-        document.querySelector('.js-checkout-header-cart-quantity').innerHTML = `${calculateCartQuantity()} items`;
-        */
-
         renderPaymentSummary();
         renderCheckoutHeader();
 
@@ -198,10 +193,6 @@ export function renderOrderSummary() {
 
         document.querySelector(`.js-quantity-${productId}`).innerHTML = newQuantity;
 
-        /*
-        document.querySelector('.js-checkout-header-cart-quantity').innerHTML = `${calculateCartQuantity()} items`;
-        */
-
         renderCheckoutHeader();
         renderPaymentSummary();
       }
@@ -218,6 +209,7 @@ export function renderOrderSummary() {
     });
   });
 } 
+
 }
 
 
