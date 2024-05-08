@@ -13,7 +13,7 @@ export function renderOrdersHeader () {
     </div>
 
     <div class="amazon-header-middle-section">
-      <input class="search-bar" type="text" placeholder="Search">
+      <input name="search-bar" class="search-bar" type="text" placeholder="Search">
 
       <button class="search-button">
         <img class="search-icon" src="images/icons/search-icon.png">

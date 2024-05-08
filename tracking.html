@@ -19,7 +19,8 @@
     <link rel="stylesheet" href="styles/pages/tracking.css">
   </head>
   <body>
-    <div class="amazon-header">
+    <div class="amazon-header js-orders-header">
+      <!--
       <div class="amazon-header-left-section">
         <a href="amazon.html" class="header-link">
           <img class="amazon-logo"
@@ -30,7 +31,7 @@
       </div>
 
       <div class="amazon-header-middle-section">
-        <input class="search-bar" type="text" placeholder="Search">
+        <input name="search-bar" class="search-bar" type="text" placeholder="Search">
 
         <button class="search-button">
           <img class="search-icon" src="images/icons/search-icon.png">
@@ -49,9 +50,11 @@
           <div class="cart-text">Cart</div>
         </a>
       </div>
+    -->
     </div>
 
-    <div class="main">
+    <div class="main js-tracking-page">
+      <!--
       <div class="order-tracking">
         <a class="back-to-orders-link link-primary" href="orders.html">
           View all orders
@@ -87,12 +90,10 @@
           <div class="progress-bar"></div>
         </div>
       </div>
+    -->
     </div>
 
-    <script>
-      const url = new URL(window.location.href);
-      console.log(url.searchParams.get('orderId'));
-      console.log(url.searchParams.get('productId'));
+    <script src="scripts/tracking.js" type="module">
     </script>
   </body>
 </html>

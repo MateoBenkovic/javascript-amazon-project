@@ -1,4 +1,5 @@
 import { formatCurrency } from '../scripts/utils/money.js';
+import { orders } from './orders.js';
 
 export function getProduct (productId) {
   let matchingProduct;
@@ -11,6 +12,19 @@ export function getProduct (productId) {
 
   return matchingProduct;
 }
+
+export function getOrder (orderId) {
+  let matchingOrder;
+
+  orders.forEach((order) => {
+    if (order.id === orderId) {
+      matchingOrder = order;
+    }
+  });
+
+  return matchingOrder;
+}
+
 
 class Product {
   id;
