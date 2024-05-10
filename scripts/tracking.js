@@ -8,35 +8,32 @@ const orderId = url.searchParams.get('orderId');
 
 renderOrdersHeader();
 renderTrackingPage();
-await loadProductsFetch();
-console.log(getOrder(orderId));
-console.log(getProduct(productId));
-
-const orderTime = dayjs().set('month', 5).set('date', 7);
-const currentTime = dayjs().subtract(orderTime);
-const deliveryTime = dayjs().set('month', 5).set('date', 14)
-
-console.log(
-
-  (currentTime)
-
-);
 
 async function renderTrackingPage () {
   await loadProductsFetch();
+
   let deliveryDate;
   let productName;
   let productImage;
   let productQuantity;
+  let deliveryTime;
+
   getOrder(orderId).products.forEach((product) => {
     if (product.productId === productId) {
       deliveryDate = dayjs(product.estimatedDeliveryTime).format('dddd, MMMM D');
+      deliveryTime = dayjs(product.estimatedDeliveryTime);
       productName = getProduct(productId).name;
       productImage = getProduct(productId).image;
       productQuantity = product.quantity;
     }
   });
 
+  const order = getOrder(orderId);
+
+  const today = dayjs();
+  const orderTime = dayjs(order.orderTime);
+  let percentProgress = ((today - orderTime) / (deliveryTime - orderTime)) * 100;
+  const datum = today - orderTime;
 
   const trackingPageHTML = `
 
@@ -60,19 +57,19 @@ async function renderTrackingPage () {
       <img class="product-image" src="${productImage}">
 
       <div class="progress-labels-container">
-        <div class="progress-label">
+        <div class="progress-label ${ percentProgress < 50 ? 'current-status' : '' }">
           Preparing
         </div>
-        <div class="progress-label current-status">
+        <div class="progress-label ${ (percentProgress >= 50 && percentProgress < 100) ? 'current-status' : '' }">
           Shipped
         </div>
-        <div class="progress-label">
+        <div class="progress-label ${ percentProgress >= 100 ? 'current-status' : '' }">
           Delivered
         </div>
       </div>
 
       <div class="progress-bar-container">
-        <div class="progress-bar"></div>
+        <div class="progress-bar" style="width: ${percentProgress}%"></div>
       </div>
     </div>
   `;
