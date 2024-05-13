@@ -6,6 +6,7 @@ import { cart, saveToStorage } from "../data/cart.js";
 import { renderOrdersHeader } from "./ordersHeader.js";
 
 await loadProductsFetch();
+const today = dayjs();
 
 function renderOrders() {
   let ordersHTML = '';
@@ -35,6 +36,8 @@ function renderOrders() {
     `;
     
       order.products.forEach((item) => {
+        const deliveredMessage = today < dayjs(item.estimatedDeliveryTime) ? 'Arriving on' : 'Delivered on';
+        
         
         ordersHTML += `
         
@@ -47,7 +50,7 @@ function renderOrders() {
           ${getProduct(item.productId).name}
         </div>
         <div class="product-delivery-date">
-          Arriving on: ${dayjs(item.estimatedDeliveryTime).format('MMMM D')}
+          ${deliveredMessage}: ${dayjs(item.estimatedDeliveryTime).format('MMMM D')}
         </div>
         <div class="product-quantity">
           Quantity: ${item.quantity}
